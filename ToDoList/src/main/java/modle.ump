@@ -1,0 +1,31 @@
+namespace todo.model;
+
+class ToDo{
+  int tasksComplete = 0;
+  int tasksPassedDueDate=0;
+  1 -- 1 TaskList taskList;
+  
+}
+
+class TaskList{
+  name;
+  1 <@>- * Catagory;
+}
+
+class Task{
+  name;
+  Date endDate;
+  int priority;
+  boolean complite = false;
+  boolean passedDueDate = false;
+  descriprion;
+  lazy location;
+  lazy note;
+  0..1 patrentTask -- * Task subtasks;
+}
+
+class Catagory{
+  name;
+  1 <@>- * Task;
+    0..1 parentCatagory -- * Catagory subcatagory;
+}
