@@ -9,7 +9,7 @@ class ToDo{
 
 class TaskList{
   name;
-  1 <@>- * Catagory;
+  1 <@>- * Category;
 }
 
 class Task{
@@ -24,8 +24,8 @@ class Task{
   0..1 patrentTask -- * Task subtasks;
 }
 
-class Catagory{
+class Category{
   name;
   1 <@>- * Task;
-    0..1 parentCatagory -- * Catagory subcatagory;
+    0..1 parentCatagory -- * Category subcategory;
 }
