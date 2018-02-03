@@ -4,5 +4,36 @@
 	<classpathentry kind="src" path="src/test/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8/"/>
 	<classpathentry kind="con" path="org.eclipse.buildship.core.gradleclasspathcontainer"/>
+	<classpathentry kind="src" path="/EventRegistration-Spring"/>
+	<classpathentry kind="lib" path="/home/student/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot/1.5.9.RELEASE/f472cdf948288796fb31e0bb03f6e7b022b763a0/spring-boot-1.5.9.RELEASE.jar" sourcepath="/home/student/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot/1.5.9.RELEASE/dceed75443f662ced8d679fd368f314d584faa83/spring-boot-1.5.9.RELEASE-sources.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/home/student/.gradle/caches/modules-2/files-2.1/org.modelmapper/modelmapper/1.1.1/eca02e49bb6c4f64a1c13d65ef01da548eb8b371/modelmapper-1.1.1.jar" sourcepath="/home/student/.gradle/caches/modules-2/files-2.1/org.modelmapper/modelmapper/1.1.1/8a8d93f64dddd72f71d778bd84834a248e0f3e7a/modelmapper-1.1.1-sources.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/home/student/.gradle/caches/modules-2/files-2.1/org.springframework/spring-beans/4.3.13.RELEASE/8613a7077722f1d97f8cb3fea4b0b40bfadf4496/spring-beans-4.3.13.RELEASE.jar" sourcepath="/home/student/.gradle/caches/modules-2/files-2.1/org.springframework/spring-beans/4.3.13.RELEASE/5e55eefa667944084e88a16b71b83f8381afb69c/spring-beans-4.3.13.RELEASE-sources.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/home/student/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-autoconfigure/1.5.9.RELEASE/88dd18bdaf317ae40971573a051fd47265f2ed39/spring-boot-autoconfigure-1.5.9.RELEASE.jar" sourcepath="/home/student/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-autoconfigure/1.5.9.RELEASE/e8ec0872402f7a3d5c39c92009bd0d5fcb6783f6/spring-boot-autoconfigure-1.5.9.RELEASE-sources.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/home/student/.gradle/caches/modules-2/files-2.1/org.springframework/spring-context/4.3.13.RELEASE/6ab1c189a13182fa3256f6bbc68fafdaf8f5a19e/spring-context-4.3.13.RELEASE.jar" sourcepath="/home/student/.gradle/caches/modules-2/files-2.1/org.springframework/spring-context/4.3.13.RELEASE/9ee1b6e02065f01bf401c3cb4dbaf138009e1866/spring-context-4.3.13.RELEASE-sources.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/home/student/.gradle/caches/modules-2/files-2.1/org.springframework/spring-webmvc/4.2.6.RELEASE/7c7ea475d33287e0e3a92e98ccbe0ad6a0dbb9ca/spring-webmvc-4.2.6.RELEASE.jar" sourcepath="/home/student/.gradle/caches/modules-2/files-2.1/org.springframework/spring-webmvc/4.2.6.RELEASE/33f820095e1e3978f58ac47747e13f1f146ef69/spring-webmvc-4.2.6.RELEASE-sources.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -27,18 +27,11 @@ public class TaskList
   {
     name = aName;
     catagories = new ArrayList<Catagory>();
-    if (aToDo == null || aToDo.getTaskList() != null)
+    boolean didAddToDo = setToDo(aToDo);
+    if (!didAddToDo)
     {
-      throw new RuntimeException("Unable to create TaskList due to aToDo");
+      throw new RuntimeException("Unable to create taskList due to toDo");
     }
-    toDo = aToDo;
-  }
-
-  public TaskList(String aName)
-  {
-    name = aName;
-    catagories = new ArrayList<Catagory>();
-    toDo = new ToDo(this);
   }
 
   //------------------------
@@ -165,6 +158,34 @@ public class TaskList
     return wasAdded;
   }
 
+  public boolean setToDo(ToDo aNewToDo)
+  {
+    boolean wasSet = false;
+    if (aNewToDo == null)
+    {
+      //Unable to setToDo to null, as taskList must always be associated to a toDo
+      return wasSet;
+    }
+    
+    TaskList existingTaskList = aNewToDo.getTaskList();
+    if (existingTaskList != null && !equals(existingTaskList))
+    {
+      //Unable to setToDo, the current toDo already has a taskList, which would be orphaned if it were re-assigned
+      return wasSet;
+    }
+    
+    ToDo anOldToDo = toDo;
+    toDo = aNewToDo;
+    toDo.setTaskList(this);
+
+    if (anOldToDo != null)
+    {
+      anOldToDo.setTaskList(null);
+    }
+    wasSet = true;
+    return wasSet;
+  }
+
   public void delete()
   {
     while (catagories.size() > 0)
@@ -178,7 +199,7 @@ public class TaskList
     toDo = null;
     if (existingToDo != null)
     {
-      existingToDo.delete();
+      existingToDo.setTaskList(null);
     }
   }
 

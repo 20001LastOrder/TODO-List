@@ -22,22 +22,10 @@ public class ToDo
   // CONSTRUCTOR
   //------------------------
 
-  public ToDo(TaskList aTaskList)
+  public ToDo()
   {
     tasksComplete = 0;
     tasksPassedDueDate = 0;
-    if (aTaskList == null || aTaskList.getToDo() != null)
-    {
-      throw new RuntimeException("Unable to create ToDo due to aTaskList");
-    }
-    taskList = aTaskList;
-  }
-
-  public ToDo(String aNameForTaskList)
-  {
-    tasksComplete = 0;
-    tasksPassedDueDate = 0;
-    taskList = new TaskList(aNameForTaskList, this);
   }
 
   //------------------------
@@ -73,6 +61,39 @@ public class ToDo
   public TaskList getTaskList()
   {
     return taskList;
+  }
+
+  public boolean hasTaskList()
+  {
+    boolean has = taskList != null;
+    return has;
+  }
+
+  public boolean setTaskList(TaskList aNewTaskList)
+  {
+    boolean wasSet = false;
+    if (taskList != null && !taskList.equals(aNewTaskList) && equals(taskList.getToDo()))
+    {
+      //Unable to setTaskList, as existing taskList would become an orphan
+      return wasSet;
+    }
+
+    taskList = aNewTaskList;
+    ToDo anOldToDo = aNewTaskList != null ? aNewTaskList.getToDo() : null;
+
+    if (!this.equals(anOldToDo))
+    {
+      if (anOldToDo != null)
+      {
+        anOldToDo.taskList = null;
+      }
+      if (taskList != null)
+      {
+        taskList.setToDo(this);
+      }
+    }
+    wasSet = true;
+    return wasSet;
   }
 
   public void delete()
