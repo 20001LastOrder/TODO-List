@@ -13,10 +13,10 @@ public class Catagory
   // MEMBER VARIABLES
   //------------------------
 
-  //Catagory Attributes
+  // Category Attributes
   private String name;
 
-  //Catagory Associations
+  // Category Associations
   private List<Task> tasks;
   private List<Catagory> subcatagory;
   private TaskList taskList;
