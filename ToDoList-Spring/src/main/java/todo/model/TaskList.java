@@ -95,25 +95,11 @@ public class TaskList
     return 0;
   }
 
-  public Category addCategory(String aName)
-  {
-    return new Category(aName, this);
-  }
-
   public boolean addCategory(Category aCategory)
   {
     boolean wasAdded = false;
     if (categories.contains(aCategory)) { return false; }
-    TaskList existingTaskList = aCategory.getTaskList();
-    boolean isNewTaskList = existingTaskList != null && !this.equals(existingTaskList);
-    if (isNewTaskList)
-    {
-      aCategory.setTaskList(this);
-    }
-    else
-    {
-      categories.add(aCategory);
-    }
+    categories.add(aCategory);
     wasAdded = true;
     return wasAdded;
   }
@@ -121,8 +107,7 @@ public class TaskList
   public boolean removeCategory(Category aCategory)
   {
     boolean wasRemoved = false;
-    //Unable to remove aCategory, as it must always have a taskList
-    if (!this.equals(aCategory.getTaskList()))
+    if (categories.contains(aCategory))
     {
       categories.remove(aCategory);
       wasRemoved = true;
@@ -164,13 +149,7 @@ public class TaskList
 
   public void delete()
   {
-    while (categories.size() > 0)
-    {
-      Category aCategory = categories.get(categories.size() - 1);
-      aCategory.delete();
-      categories.remove(aCategory);
-    }
-    
+    categories.clear();
   }
 
 

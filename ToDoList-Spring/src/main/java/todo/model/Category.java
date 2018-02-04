@@ -19,23 +19,16 @@ public class Category
   //Category Associations
   private List<Task> tasks;
   private List<Category> subcategory;
-  private TaskList taskList;
-  private Category parentCatagory;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public Category(String aName, TaskList aTaskList)
+  public Category(String aName)
   {
     name = aName;
     tasks = new ArrayList<Task>();
     subcategory = new ArrayList<Category>();
-    boolean didAddTaskList = setTaskList(aTaskList);
-    if (!didAddTaskList)
-    {
-      throw new RuntimeException("Unable to create category due to taskList");
-    }
   }
 
   //------------------------
@@ -115,46 +108,16 @@ public class Category
     return index;
   }
 
-  public TaskList getTaskList()
-  {
-    return taskList;
-  }
-
-  public Category getParentCatagory()
-  {
-    return parentCatagory;
-  }
-
-  public boolean hasParentCatagory()
-  {
-    boolean has = parentCatagory != null;
-    return has;
-  }
-
   public static int minimumNumberOfTasks()
   {
     return 0;
-  }
-
-  public Task addTask(String aName, Date aEndDate, int aPriority, String aDescriprion)
-  {
-    return new Task(aName, aEndDate, aPriority, aDescriprion, this);
   }
 
   public boolean addTask(Task aTask)
   {
     boolean wasAdded = false;
     if (tasks.contains(aTask)) { return false; }
-    Category existingCategory = aTask.getCategory();
-    boolean isNewCategory = existingCategory != null && !this.equals(existingCategory);
-    if (isNewCategory)
-    {
-      aTask.setCategory(this);
-    }
-    else
-    {
-      tasks.add(aTask);
-    }
+    tasks.add(aTask);
     wasAdded = true;
     return wasAdded;
   }
@@ -162,8 +125,7 @@ public class Category
   public boolean removeTask(Task aTask)
   {
     boolean wasRemoved = false;
-    //Unable to remove aTask, as it must always have a category
-    if (!this.equals(aTask.getCategory()))
+    if (tasks.contains(aTask))
     {
       tasks.remove(aTask);
       wasRemoved = true;
@@ -212,20 +174,7 @@ public class Category
   {
     boolean wasAdded = false;
     if (subcategory.contains(aSubcategory)) { return false; }
-    Category existingParentCatagory = aSubcategory.getParentCatagory();
-    if (existingParentCatagory == null)
-    {
-      aSubcategory.setParentCatagory(this);
-    }
-    else if (!this.equals(existingParentCatagory))
-    {
-      existingParentCatagory.removeSubcategory(aSubcategory);
-      addSubcategory(aSubcategory);
-    }
-    else
-    {
-      subcategory.add(aSubcategory);
-    }
+    subcategory.add(aSubcategory);
     wasAdded = true;
     return wasAdded;
   }
@@ -236,7 +185,6 @@ public class Category
     if (subcategory.contains(aSubcategory))
     {
       subcategory.remove(aSubcategory);
-      aSubcategory.setParentCatagory(null);
       wasRemoved = true;
     }
     return wasRemoved;
@@ -274,71 +222,16 @@ public class Category
     return wasAdded;
   }
 
-  public boolean setTaskList(TaskList aTaskList)
-  {
-    boolean wasSet = false;
-    if (aTaskList == null)
-    {
-      return wasSet;
-    }
-
-    TaskList existingTaskList = taskList;
-    taskList = aTaskList;
-    if (existingTaskList != null && !existingTaskList.equals(aTaskList))
-    {
-      existingTaskList.removeCategory(this);
-    }
-    taskList.addCategory(this);
-    wasSet = true;
-    return wasSet;
-  }
-
-  public boolean setParentCatagory(Category aParentCatagory)
-  {
-    boolean wasSet = false;
-    Category existingParentCatagory = parentCatagory;
-    parentCatagory = aParentCatagory;
-    if (existingParentCatagory != null && !existingParentCatagory.equals(aParentCatagory))
-    {
-      existingParentCatagory.removeSubcategory(this);
-    }
-    if (aParentCatagory != null)
-    {
-      aParentCatagory.addSubcategory(this);
-    }
-    wasSet = true;
-    return wasSet;
-  }
-
   public void delete()
   {
-    while (tasks.size() > 0)
-    {
-      Task aTask = tasks.get(tasks.size() - 1);
-      aTask.delete();
-      tasks.remove(aTask);
-    }
-    
-    while( !subcategory.isEmpty() )
-    {
-      subcategory.get(0).setParentCatagory(null);
-    }
-    TaskList placeholderTaskList = taskList;
-    this.taskList = null;
-    placeholderTaskList.removeCategory(this);
-    if (parentCatagory != null)
-    {
-      Category placeholderParentCatagory = parentCatagory;
-      this.parentCatagory = null;
-      placeholderParentCatagory.removeSubcategory(this);
-    }
+    tasks.clear();
+    subcategory.clear();
   }
 
 
   public String toString()
   {
     return super.toString() + "["+
-            "name" + ":" + getName()+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "taskList = "+(getTaskList()!=null?Integer.toHexString(System.identityHashCode(getTaskList())):"null");
+            "name" + ":" + getName()+ "]";
   }
 }

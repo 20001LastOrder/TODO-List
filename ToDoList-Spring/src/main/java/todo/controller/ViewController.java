@@ -34,7 +34,8 @@ public class ViewController {
 	
 	@PostMapping(value = { "/categories/{name}", "/categories/{name}/" })
 	public Category setCategory(@PathVariable("name") String name) {
-		return service.addCategory(name);
+		Category c = service.addCategory(name);
+		return c;
 	}
 	 /* Initialize a new task_list
 	 * Must be called first before adding catagories

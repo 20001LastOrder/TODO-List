@@ -25,14 +25,12 @@ public class Task
 
   //Task Associations
   private List<Task> subtasks;
-  private Task patrentTask;
-  private Category category;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public Task(String aName, Date aEndDate, int aPriority, String aDescriprion, Category aCategory)
+  public Task(String aName, Date aEndDate, int aPriority, String aDescriprion)
   {
     name = aName;
     endDate = aEndDate;
@@ -43,11 +41,6 @@ public class Task
     location = null;
     note = null;
     subtasks = new ArrayList<Task>();
-    boolean didAddCategory = setCategory(aCategory);
-    if (!didAddCategory)
-    {
-      throw new RuntimeException("Unable to create task due to category");
-    }
   }
 
   //------------------------
@@ -188,22 +181,6 @@ public class Task
     return index;
   }
 
-  public Task getPatrentTask()
-  {
-    return patrentTask;
-  }
-
-  public boolean hasPatrentTask()
-  {
-    boolean has = patrentTask != null;
-    return has;
-  }
-
-  public Category getCategory()
-  {
-    return category;
-  }
-
   public static int minimumNumberOfSubtasks()
   {
     return 0;
@@ -213,20 +190,7 @@ public class Task
   {
     boolean wasAdded = false;
     if (subtasks.contains(aSubtask)) { return false; }
-    Task existingPatrentTask = aSubtask.getPatrentTask();
-    if (existingPatrentTask == null)
-    {
-      aSubtask.setPatrentTask(this);
-    }
-    else if (!this.equals(existingPatrentTask))
-    {
-      existingPatrentTask.removeSubtask(aSubtask);
-      addSubtask(aSubtask);
-    }
-    else
-    {
-      subtasks.add(aSubtask);
-    }
+    subtasks.add(aSubtask);
     wasAdded = true;
     return wasAdded;
   }
@@ -237,7 +201,6 @@ public class Task
     if (subtasks.contains(aSubtask))
     {
       subtasks.remove(aSubtask);
-      aSubtask.setPatrentTask(null);
       wasRemoved = true;
     }
     return wasRemoved;
@@ -275,57 +238,9 @@ public class Task
     return wasAdded;
   }
 
-  public boolean setPatrentTask(Task aPatrentTask)
-  {
-    boolean wasSet = false;
-    Task existingPatrentTask = patrentTask;
-    patrentTask = aPatrentTask;
-    if (existingPatrentTask != null && !existingPatrentTask.equals(aPatrentTask))
-    {
-      existingPatrentTask.removeSubtask(this);
-    }
-    if (aPatrentTask != null)
-    {
-      aPatrentTask.addSubtask(this);
-    }
-    wasSet = true;
-    return wasSet;
-  }
-
-  public boolean setCategory(Category aCategory)
-  {
-    boolean wasSet = false;
-    if (aCategory == null)
-    {
-      return wasSet;
-    }
-
-    Category existingCategory = category;
-    category = aCategory;
-    if (existingCategory != null && !existingCategory.equals(aCategory))
-    {
-      existingCategory.removeTask(this);
-    }
-    category.addTask(this);
-    wasSet = true;
-    return wasSet;
-  }
-
   public void delete()
   {
-    while( !subtasks.isEmpty() )
-    {
-      subtasks.get(0).setPatrentTask(null);
-    }
-    if (patrentTask != null)
-    {
-      Task placeholderPatrentTask = patrentTask;
-      this.patrentTask = null;
-      placeholderPatrentTask.removeSubtask(this);
-    }
-    Category placeholderCategory = category;
-    this.category = null;
-    placeholderCategory.removeTask(this);
+    subtasks.clear();
   }
 
 
@@ -339,7 +254,6 @@ public class Task
             "descriprion" + ":" + getDescriprion()+ "," +
             "location" + ":" + getLocation()+ "," +
             "note" + ":" + getNote()+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "endDate" + "=" + (getEndDate() != null ? !getEndDate().equals(this)  ? getEndDate().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
-            "  " + "category = "+(getCategory()!=null?Integer.toHexString(System.identityHashCode(getCategory())):"null");
+            "  " + "endDate" + "=" + (getEndDate() != null ? !getEndDate().equals(this)  ? getEndDate().toString().replaceAll("  ","    ") : "this" : "null");
   }
 }

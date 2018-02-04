@@ -11,13 +11,15 @@ public class ToDoService {
 	TaskList list;
 	
 	
-	public void setTaskList(TaskList todo) {
+	public ToDoService(TaskList todo) {
 		list = todo;
 	}
 	
 	public Category addCategory(String name) {
-		System.out.print(list + "asdawwawwae");
-		return list.addCategory(name);
+		Category c = new Category(name);
+		list.addCategory(c);
+		PersistenceXStream.saveToXMLwithXStream(list);
+		return c;
 		
 	}
 }

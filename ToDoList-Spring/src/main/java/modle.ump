@@ -5,7 +5,7 @@ namespace todo.model;
 class TaskList{
   int tasksComplete = 0;
   int tasksPassedDueDate=0;
-  1 <@>- * Category;
+  1 -> * Category;
 }
 
 class Task{
@@ -17,11 +17,11 @@ class Task{
   descriprion;
   lazy location;
   lazy note;
-  0..1 patrentTask -- * Task subtasks;
+  0..1 patrentTask -> * Task subtasks;
 }
 
 class Category{
   name;
-  1 <@>- * Task;
-    0..1 parentCatagory -- * Category subcategory;
+  1 -> * Task;
+    0..1 parentCatagory -> * Category subcategory;
 }
