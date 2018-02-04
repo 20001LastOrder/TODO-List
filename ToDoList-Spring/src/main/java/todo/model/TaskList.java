@@ -4,7 +4,7 @@
 package todo.model;
 import java.util.*;
 
-// line 10 "../../modle.ump"
+// line 5 "../../modle.ump"
 public class TaskList
 {
 
@@ -13,42 +13,51 @@ public class TaskList
   //------------------------
 
   //TaskList Attributes
-  private String name;
+  private int tasksComplete;
+  private int tasksPassedDueDate;
 
   //TaskList Associations
   private List<Category> categories;
-  private ToDo toDo;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public TaskList(String aName, ToDo aToDo)
+  public TaskList()
   {
-    name = aName;
+    tasksComplete = 0;
+    tasksPassedDueDate = 0;
     categories = new ArrayList<Category>();
-    boolean didAddToDo = setToDo(aToDo);
-    if (!didAddToDo)
-    {
-      throw new RuntimeException("Unable to create taskList due to toDo");
-    }
   }
 
   //------------------------
   // INTERFACE
   //------------------------
 
-  public boolean setName(String aName)
+  public boolean setTasksComplete(int aTasksComplete)
   {
     boolean wasSet = false;
-    name = aName;
+    tasksComplete = aTasksComplete;
     wasSet = true;
     return wasSet;
   }
 
-  public String getName()
+  public boolean setTasksPassedDueDate(int aTasksPassedDueDate)
   {
-    return name;
+    boolean wasSet = false;
+    tasksPassedDueDate = aTasksPassedDueDate;
+    wasSet = true;
+    return wasSet;
+  }
+
+  public int getTasksComplete()
+  {
+    return tasksComplete;
+  }
+
+  public int getTasksPassedDueDate()
+  {
+    return tasksPassedDueDate;
   }
 
   public Category getCategory(int index)
@@ -79,11 +88,6 @@ public class TaskList
   {
     int index = categories.indexOf(aCategory);
     return index;
-  }
-
-  public ToDo getToDo()
-  {
-    return toDo;
   }
 
   public static int minimumNumberOfCategories()
@@ -158,34 +162,6 @@ public class TaskList
     return wasAdded;
   }
 
-  public boolean setToDo(ToDo aNewToDo)
-  {
-    boolean wasSet = false;
-    if (aNewToDo == null)
-    {
-      //Unable to setToDo to null, as taskList must always be associated to a toDo
-      return wasSet;
-    }
-    
-    TaskList existingTaskList = aNewToDo.getTaskList();
-    if (existingTaskList != null && !equals(existingTaskList))
-    {
-      //Unable to setToDo, the current toDo already has a taskList, which would be orphaned if it were re-assigned
-      return wasSet;
-    }
-    
-    ToDo anOldToDo = toDo;
-    toDo = aNewToDo;
-    toDo.setTaskList(this);
-
-    if (anOldToDo != null)
-    {
-      anOldToDo.setTaskList(null);
-    }
-    wasSet = true;
-    return wasSet;
-  }
-
   public void delete()
   {
     while (categories.size() > 0)
@@ -195,19 +171,13 @@ public class TaskList
       categories.remove(aCategory);
     }
     
-    ToDo existingToDo = toDo;
-    toDo = null;
-    if (existingToDo != null)
-    {
-      existingToDo.setTaskList(null);
-    }
   }
 
 
   public String toString()
   {
     return super.toString() + "["+
-            "name" + ":" + getName()+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "toDo = "+(getToDo()!=null?Integer.toHexString(System.identityHashCode(getToDo())):"null");
+            "tasksComplete" + ":" + getTasksComplete()+ "," +
+            "tasksPassedDueDate" + ":" + getTasksPassedDueDate()+ "]";
   }
 }

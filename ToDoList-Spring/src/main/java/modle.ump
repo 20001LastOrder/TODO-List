@@ -1,14 +1,10 @@
 namespace todo.model;
 
-class ToDo{
-  int tasksComplete = 0;
-  int tasksPassedDueDate=0;
-  1 -- 0..1 TaskList taskList;
-  
-}
+
 
 class TaskList{
-  name;
+  int tasksComplete = 0;
+  int tasksPassedDueDate=0;
   1 <@>- * Category;
 }
 
