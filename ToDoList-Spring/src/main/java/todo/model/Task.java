@@ -30,14 +30,14 @@ public class Task
   // CONSTRUCTOR
   //------------------------
 
-  public Task(String aName, Date aEndDate, int aPriority, String aDescriprion)
+  public Task(String aName, Date aEndDate, int aPriority)
   {
     name = aName;
     endDate = aEndDate;
     priority = aPriority;
     complite = false;
     passedDueDate = false;
-    descriprion = aDescriprion;
+    descriprion = null;
     location = null;
     note = null;
     subtasks = new ArrayList<Task>();

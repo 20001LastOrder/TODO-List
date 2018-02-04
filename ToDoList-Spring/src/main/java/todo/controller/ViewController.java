@@ -2,6 +2,8 @@ package todo.controller;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.sql.Date;
+import java.time.LocalTime;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -12,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import todo.service.InvalidInputException;
 import todo.model.Category;
+import todo.model.Task;
 import todo.model.TaskList;
 import todo.service.ToDoService;
 /*
@@ -37,27 +41,15 @@ public class ViewController {
 		Category c = service.addCategory(name);
 		return c;
 	}
-	 /* Initialize a new task_list
-	 * Must be called first before adding catagories
-	 */
-	/*private void task_list_init(String name) {
-		if (null == name) {
-		task_list = new todo.model.TaskList("List " + taskListCounter, myToDoList);
-		} else {
-			task_list =  = new todo.model.TaskList("List " + name, myToDoList);
-		}
-	}
-	
-	/*
-	 * Add new catagory to the existing task_list
 	 
-	private void addCategoryPerformed(java.awt.event.ActionEvent evt) {
-		if (null == task_list) {
-			System.err.println("Error: Catagory added when no task_list initialized");
-		} else {
-			todo.model.Catagory newCatagory = new todo.model.Catagory (taskName, task_list);
-		}
+	@PostMapping(value = { "/tasks/{name}", "/tasks/{name}/" })
+	public Task setTask(
+			@PathVariable ("name") String name,
+			@RequestParam Date endDate,
+			@RequestParam String priority,
+			@RequestParam String category
+		) throws InvalidInputException {
+		int p = Integer.parseInt(priority);
+		return service.addTask(name, endDate, p, category);
 	}
-	
-	private void */
 }

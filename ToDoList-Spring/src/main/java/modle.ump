@@ -14,7 +14,7 @@ class Task{
   int priority;
   boolean complite = false;
   boolean passedDueDate = false;
-  descriprion;
+  lazy descriprion;
   lazy location;
   lazy note;
   0..1 patrentTask -> * Task subtasks;
