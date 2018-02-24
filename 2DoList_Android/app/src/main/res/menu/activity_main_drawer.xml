@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group
+        android:id="@+id/nav_list_group"
+        android:checkableBehavior="single"
+        android:orderInCategory="1">
+        <menu>
+            <item
+                android:id="@+id/topList"
+                android:title="First list">
+            </item>
+        </menu>
+    </group>
+
+    <group
+        android:id="@+id/nav_list_history"
+        android:orderInCategory="2">
+        <item
+            android:id="@+id/history"
+            android:title="History">
+        </item>
+    </group>
+
+    <group
+        android:id="@+id/nav_group_communication"
+        android:orderInCategory="999">
+        <item android:title="Communicate">
+            <menu>
+                <item
+                    android:id="@+id/nav_share"
+                    android:icon="@drawable/ic_menu_share"
+                    android:title="Share" />
+                <item
+                    android:id="@+id/nav_send"
+                    android:icon="@drawable/ic_menu_send"
+                    android:title="Send" />
+            </menu>
+        </item>
+    </group>
+
+</menu>
